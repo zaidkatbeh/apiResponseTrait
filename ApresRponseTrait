@@ -1,0 +1,29 @@
+trait ResponseTrait2{
+    public function ApiResponse($code,$error=null,$data=null){
+        $array=[
+            'status'=>in_array($code,$this->successCode()),
+            'error'=>$error,
+            'data'=>$data,
+        ];
+        return response($array,$code);
+    }
+    public function NotFoundResponse(){
+        return $this->ApiResponse(404,"not Found!");
+    }
+    public function unKnownError(){
+        return $this->ApiResponse(520,"Unkown error!");
+    }
+    public function DeletedResponse(){
+        return $this->ApiResponse(200,null,true);
+    }
+    public function CreatedResponse($data){
+        return $this->ApiResponse(201,null,$data);
+    }
+    public function successCode(){
+        return[
+            200,
+            201,
+            202,
+        ];
+    }
+}
